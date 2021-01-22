@@ -1,4 +1,4 @@
-package com.khaled.savingmoney.ui
+package com.khaled.savingmoney.ui.budget_list.view
 
 import android.os.Bundle
 import android.view.View
@@ -8,6 +8,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.khaled.savingmoney.R
 import com.khaled.savingmoney.databinding.ActivityBudgetListBinding
+import com.khaled.savingmoney.ui.budget_list.adapter.BudgetListAdapter
+import com.khaled.savingmoney.ui.budget_list.view_model.BudgetListViewModel
 
 class BudgetListActivity : AppCompatActivity() {
 

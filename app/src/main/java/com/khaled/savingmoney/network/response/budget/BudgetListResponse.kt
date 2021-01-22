@@ -1,4 +1,4 @@
-package com.khaled.savingmoney.network.response
+package com.khaled.savingmoney.network.response.budget
 
 import com.google.gson.annotations.SerializedName
 

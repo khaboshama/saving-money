@@ -1,6 +1,6 @@
 package com.khaled.savingmoney.network.end_points
 
-import com.khaled.savingmoney.network.response.BudgetListResponse
+import com.khaled.savingmoney.network.response.budget.BudgetListResponse
 import retrofit2.Response
 import retrofit2.http.GET
 

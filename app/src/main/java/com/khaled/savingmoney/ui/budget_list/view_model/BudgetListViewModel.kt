@@ -1,13 +1,13 @@
-package com.khaled.savingmoney.ui
+package com.khaled.savingmoney.ui.budget_list.view_model
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.khaled.savingmoney.R
-import com.khaled.savingmoney.model.Budget
+import com.khaled.savingmoney.model.budget.Budget
 import com.khaled.savingmoney.network.RetrofitService
-import com.khaled.savingmoney.network.response.BudgetListResponse
+import com.khaled.savingmoney.network.response.budget.BudgetListResponse
 import com.khaled.savingmoney.utils.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -1,4 +1,4 @@
-package com.khaled.savingmoney.ui
+package com.khaled.savingmoney.ui.budget_list.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,8 +8,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.khaled.savingmoney.R
 import com.khaled.savingmoney.databinding.ListItemBudgetBinding
-import com.khaled.savingmoney.model.Budget
-import com.khaled.savingmoney.model.BudgetDiffCallback
+import com.khaled.savingmoney.model.budget.Budget
+import com.khaled.savingmoney.model.budget.BudgetDiffCallback
+import com.khaled.savingmoney.ui.budget_list.view_model.BudgetListViewModel
+import com.khaled.savingmoney.ui.budget_list.view.BudgetListActivity
 import com.khaled.savingmoney.utils.DateUtils
 
 class BudgetListAdapter(context: Context) :
