@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SavingMoney">
-        <activity android:name=".ui.BudgetListActivity">
+        <activity android:name=".ui.account_list.view.AccountListActivity"/>
+        <activity android:name=".ui.budget_list.view.BudgetListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

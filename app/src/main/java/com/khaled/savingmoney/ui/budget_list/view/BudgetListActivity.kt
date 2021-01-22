@@ -1,4 +1,4 @@
-package com.khaled.savingmoney.ui
+package com.khaled.savingmoney.ui.budget_list.view
 
 import android.os.Bundle
 import android.view.View
@@ -8,10 +8,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.khaled.savingmoney.R
 import com.khaled.savingmoney.databinding.ActivityBudgetListBinding
+import com.khaled.savingmoney.ui.budget_list.adapter.BudgetListAdapter
+import com.khaled.savingmoney.ui.budget_list.view_model.BudgetListViewModel
 
 class BudgetListActivity : AppCompatActivity() {
 
-    private lateinit var articleListAdapter: BudgetListAdapter
+    private lateinit var budgetListAdapter: BudgetListAdapter
     private lateinit var binding: ActivityBudgetListBinding
     private lateinit var viewModel: BudgetListViewModel
 
@@ -28,17 +30,13 @@ class BudgetListActivity : AppCompatActivity() {
     private fun setupObservers() {
         viewModel.budgetList.observe(this) {
             hideProgressBar()
-            articleListAdapter.submitList(it)
+            budgetListAdapter.submitList(it)
         }
         viewModel.showMessage.observe(this) {
             hideProgressBar()
             Toast.makeText(this, it, Toast.LENGTH_LONG).show()
         }
-        viewModel.navigateToBudgetScreenLiveData.observe(this) {
-//            startActivity(Intent(this, ArticleDetailsActivity::class.java).apply {
-//                putExtra(Constants.INTENT_BUDGET_KEY, it)
-//            })
-        }
+        viewModel.navigateToBudgetScreenLiveData.observe(this) {}
     }
 
     private fun hideProgressBar() {
@@ -46,7 +44,7 @@ class BudgetListActivity : AppCompatActivity() {
     }
 
     private fun setupBudgetListRecyclerView() {
-        articleListAdapter = BudgetListAdapter(this)
-        binding.articlesRecyclerView.adapter = articleListAdapter
+        budgetListAdapter = BudgetListAdapter(this)
+        binding.budgetsRecyclerView.adapter = budgetListAdapter
     }
 }
