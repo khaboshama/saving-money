@@ -1,4 +1,7 @@
 <resources>
-    <string name="app_name">Saving Money</string>
+    <string name="app_name">Budget List</string>
     <string name="error_message">Something went wrong, please try again</string>
+    <string name="first_month">first month %s</string>
+    <string name="last_month">last month %s</string>
+    <string name="date_format">date: %s</string>
 </resources>
