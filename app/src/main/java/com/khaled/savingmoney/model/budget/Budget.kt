@@ -11,7 +11,7 @@ data class Budget(
     @SerializedName("first_month") val firstMonth: String? = null,
     @SerializedName("last_month") val lastMonth: String? = null,
     @SerializedName("date_format") val dateFormat: DateFormat? = null,
-    @SerializedName("currency_format") val CurrencyFormat: CurrencyFormat? = null
+    @SerializedName("currency_format") val currencyFormat: CurrencyFormat? = null
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         id = parcel.readString(),

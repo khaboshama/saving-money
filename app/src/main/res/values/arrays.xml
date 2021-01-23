@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="account_types">
+        <item>checking</item>
+        <item>savings</item>
+        <item>creditCard</item>
+        <item>cash</item>
+        <item>lineOfCredit</item>
+        <item>otherAsset</item>
+        <item>otherLiability</item>
+    </array>
+</resources>

@@ -24,6 +24,7 @@ object RetrofitService {
             override fun intercept(chain: Interceptor.Chain): Response {
                 val requestBuilder: Request.Builder = chain.request().newBuilder()
                 requestBuilder.addHeader("Authorization", "Bearer " +Constants.AUTHORIZATION_KEY)
+                requestBuilder.addHeader("Content-Type", "application/json")
                 return chain.proceed(requestBuilder.build())
             }
         })

@@ -38,7 +38,7 @@ class BudgetListActivity : AppCompatActivity() {
             hideProgressBar()
             Toast.makeText(this, it, Toast.LENGTH_LONG).show()
         }
-        viewModel.navigateToBudgetScreenLiveData.observe(this) { budget ->
+        viewModel.navigateToAccountListScreenLiveData.observe(this) { budget ->
             startActivity(Intent(this, AccountListActivity::class.java).apply {
                 putExtra(Constants.INTENT_BUDGET_KEY, budget)
             })

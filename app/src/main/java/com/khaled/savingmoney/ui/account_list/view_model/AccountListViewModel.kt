@@ -5,22 +5,24 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.khaled.savingmoney.R
-import com.khaled.savingmoney.constant.Constants
 import com.khaled.savingmoney.model.account.Account
+import com.khaled.savingmoney.model.budget.Budget
 import com.khaled.savingmoney.network.RetrofitService
 import com.khaled.savingmoney.network.response.account.AccountListResponse
 import com.khaled.savingmoney.utils.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.internal.notify
 import retrofit2.Response
 
 class AccountListViewModel(application: Application) : AndroidViewModel(application) {
 
-    var accountList = MutableLiveData<List<Account>>()
+    var budget: Budget? = null
+    var accountList = MutableLiveData<MutableList<Account>>()
         private set
 
-    var navigateToCreateAccountScreenLiveData = SingleLiveEvent<Void>()
+    var navigateToCreateAccountScreenLiveData = SingleLiveEvent<String>()
         private set
 
     var showMessage = MutableLiveData<String>()
@@ -30,7 +32,7 @@ class AccountListViewModel(application: Application) : AndroidViewModel(applicat
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 try {
-                    val accountListResponse = RetrofitService.moneyServiceApi.getAccountList(Constants.ACCESS_TOKEN)
+                    val accountListResponse = RetrofitService.moneyServiceApi.getAccountList(budgetId = budget?.id!!)
                     if (accountListResponse.isSuccessful) {
                         parseAccountListSuccessResponse(accountListResponse)
                     } else {
@@ -45,7 +47,8 @@ class AccountListViewModel(application: Application) : AndroidViewModel(applicat
 
     private suspend fun parseAccountListSuccessResponse(response: Response<AccountListResponse>) {
         withContext(Dispatchers.Main) {
-            accountList.value = response.body()?.dataBudgetList?.accountList?.sortedByDescending { it.balance }
+            accountList.value = response.body()?.dataBudgetList?.accountList?.filter { it.deleted.not() }
+                ?.sortedByDescending { it.balance }?.toMutableList()
         }
     }
 
@@ -56,7 +59,10 @@ class AccountListViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     fun onCreateAccountButtonClicked() {
-        navigateToCreateAccountScreenLiveData.call()
+        navigateToCreateAccountScreenLiveData.value = budget?.id
     }
 
+    fun addNewAccount(account: Account) {
+        accountList.value?.add(account)
+    }
 }

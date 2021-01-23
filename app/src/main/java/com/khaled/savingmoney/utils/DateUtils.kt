@@ -12,7 +12,7 @@ object DateUtils {
             val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.getDefault())
             val date: Date? = sdf.parse(stringDate)
             date?.let {
-                val dateStyle = dateFormat ?: Constants.DEFAULT_DATE_FORMATE
+                val dateStyle = dateFormat ?: Constants.DEFAULT_DATE_FORMAT
                 val format = SimpleDateFormat(dateStyle, Locale.getDefault())
                 resultDate = format.format(it)
             }

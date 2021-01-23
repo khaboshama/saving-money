@@ -33,13 +33,12 @@
                 app:tint="@android:color/white" />
 
             <TextView
-                android:id="@+id/toolbar_text_view"
                 style="@style/toolbar_textView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@string/account_list"
+                android:text="@string/add_account"
                 android:textAlignment="viewStart"
                 app:layout_constraintBottom_toBottomOf="@+id/back_arrow_image_view"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -47,33 +46,74 @@
                 app:layout_constraintTop_toTopOf="@+id/back_arrow_image_view" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/accounts_recycler_view"
+        <EditText
+            android:id="@+id/account_name_edit_text"
+            style="@style/form_edit_text"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@color/colorAccent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:hint="@string/account_name"
+            android:imeOptions="actionNext"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar_container" />
 
-        <ProgressBar
-            android:id="@+id/loading_progress_bar"
+        <TextView
+            android:id="@+id/account_type_text_view"
+            style="@style/form_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="@string/account_type"
+            app:layout_constraintEnd_toEndOf="@id/account_name_edit_text"
+            app:layout_constraintStart_toStartOf="@id/account_name_edit_text"
+            app:layout_constraintTop_toBottomOf="@id/account_name_edit_text" />
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:theme="@style/CustomProgressDialog"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_arrow"
+            app:layout_constraintBottom_toBottomOf="@id/account_type_text_view"
+            app:layout_constraintEnd_toEndOf="@id/account_type_text_view"
+            app:layout_constraintTop_toTopOf="@id/account_type_text_view" />
+
+        <EditText
+            android:id="@+id/account_balance_edit_text"
+            style="@style/form_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:hint="@string/account_balance"
+            android:imeOptions="actionDone"
+            android:inputType="number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_container" />
+            app:layout_constraintTop_toBottomOf="@id/account_type_text_view" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/create_account_button"
-            style="@style/FloatingActionButton"
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/add_button"
+            style="@style/submit_button"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/submit_button_selector"
+            android:enabled="false"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:stateListAnimator="@null"
+            android:text="@string/add_button"
+            android:textColor="@color/text_hint"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
