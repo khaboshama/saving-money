@@ -44,7 +44,9 @@ class AccountListViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     private suspend fun parseAccountListSuccessResponse(response: Response<AccountListResponse>) {
-        withContext(Dispatchers.Main) { accountList.value = response.body()?.dataBudgetList?.accountList }
+        withContext(Dispatchers.Main) {
+            accountList.value = response.body()?.dataBudgetList?.accountList?.sortedByDescending { it.balance }
+        }
     }
 
     private suspend fun parseAccountListErrorResponse() {

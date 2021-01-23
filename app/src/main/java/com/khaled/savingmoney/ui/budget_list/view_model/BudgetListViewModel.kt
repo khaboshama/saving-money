@@ -52,4 +52,8 @@ class BudgetListViewModel(application: Application) : AndroidViewModel(applicati
         }
     }
 
+    fun onBudgetClicked(budget: Budget) {
+        navigateToBudgetScreenLiveData.value = budget
+    }
+
 }

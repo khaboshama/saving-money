@@ -34,8 +34,11 @@ class BudgetListAdapter(context: Context) :
         holder.lastModifiedDateTextView.text =
             String.format(
                 holder.itemView.context.getString(R.string.date_format),
-                DateUtils.getDateFormat(budget.modifiedDate, budget.dateFormat.format)
+                DateUtils.getDateFormat(budget.modifiedDate, budget.dateFormat?.format)
             )
+        holder.itemView.setOnClickListener{
+            viewModel.onBudgetClicked(budget)
+        }
     }
 
     inner class BudgetViewHolder(binding: ListItemBudgetBinding) : RecyclerView.ViewHolder(binding.root) {
