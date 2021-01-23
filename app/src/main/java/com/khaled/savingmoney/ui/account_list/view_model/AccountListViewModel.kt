@@ -13,12 +13,13 @@ import com.khaled.savingmoney.utils.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.internal.notify
 import retrofit2.Response
 
 class AccountListViewModel(application: Application) : AndroidViewModel(application) {
 
     var budget: Budget? = null
-    var accountList = MutableLiveData<List<Account>>()
+    var accountList = MutableLiveData<MutableList<Account>>()
         private set
 
     var navigateToCreateAccountScreenLiveData = SingleLiveEvent<String>()
@@ -47,7 +48,7 @@ class AccountListViewModel(application: Application) : AndroidViewModel(applicat
     private suspend fun parseAccountListSuccessResponse(response: Response<AccountListResponse>) {
         withContext(Dispatchers.Main) {
             accountList.value = response.body()?.dataBudgetList?.accountList?.filter { it.deleted.not() }
-                ?.sortedByDescending { it.balance }
+                ?.sortedByDescending { it.balance }?.toMutableList()
         }
     }
 
@@ -62,7 +63,6 @@ class AccountListViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     fun addNewAccount(account: Account) {
-
+        accountList.value?.add(account)
     }
-
 }
