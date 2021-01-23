@@ -4,4 +4,8 @@
     <color name="colorPrimaryDark">#012b73</color>
     <color name="colorPrimaryLight">#0457e7</color>
     <color name="colorAccent">#ffffff</color>
+    <color name="background_edit_text">#F3F3F3</color>
+    <color name="text_hint">#80494949</color>
+    <color name="button_background_disable">#F3F3F3</color>
+    <color name="button_background_enable">@color/colorPrimaryLight</color>
 </resources>

@@ -8,4 +8,10 @@
     <string name="type_format">type: %s</string>
     <string name="balance_format">balance: %s</string>
     <string name="account_list">Account List</string>
+    <string name="add_account">Add Account</string>
+    <string name="name">Name</string>
+    <string name="account_name">account name</string>
+    <string name="account_type">account type</string>
+    <string name="account_balance">account balance</string>
+    <string name="add_button">Add</string>
 </resources>

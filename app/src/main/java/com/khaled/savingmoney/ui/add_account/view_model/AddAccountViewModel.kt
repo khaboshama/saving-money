@@ -1,4 +1,4 @@
-package com.khaled.savingmoney.ui.account_list.view_model
+package com.khaled.savingmoney.ui.add_account.view_model
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.khaled.savingmoney.R
 import com.khaled.savingmoney.constant.Constants
 import com.khaled.savingmoney.model.account.Account
-import com.khaled.savingmoney.model.budget.Budget
 import com.khaled.savingmoney.network.RetrofitService
 import com.khaled.savingmoney.network.response.account.AccountListResponse
 import com.khaled.savingmoney.utils.SingleLiveEvent
@@ -16,13 +15,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 
-class AccountListViewModel(application: Application) : AndroidViewModel(application) {
+class AddAccountViewModel(application: Application) : AndroidViewModel(application) {
 
-    var budget: Budget? = null
     var accountList = MutableLiveData<List<Account>>()
         private set
 
-    var navigateToCreateAccountScreenLiveData = SingleLiveEvent<String>()
+    var navigateToCreateAccountScreenLiveData = SingleLiveEvent<Void>()
         private set
 
     var showMessage = MutableLiveData<String>()
@@ -58,10 +56,10 @@ class AccountListViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     fun onCreateAccountButtonClicked() {
-        navigateToCreateAccountScreenLiveData.value = budget?.id
+        navigateToCreateAccountScreenLiveData.call()
     }
 
-    fun addNewAccount(account: Account) {
+    fun onAddButtonClicked() {
 
     }
 
