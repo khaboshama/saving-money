@@ -29,7 +29,7 @@ class BudgetListViewModel(application: Application) : AndroidViewModel(applicati
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 try {
-                    val budgetListResponse = RetrofitService.moneyServiceApi.getBudgetsList()
+                    val budgetListResponse = RetrofitService.moneyServiceApi.getBudgetList()
                     if (budgetListResponse.isSuccessful) {
                         parseBudgetListSuccessResponse(budgetListResponse)
                     } else {
@@ -50,6 +50,10 @@ class BudgetListViewModel(application: Application) : AndroidViewModel(applicati
         withContext(Dispatchers.Main) {
             showMessage.value = getApplication<Application>().getString(R.string.error_message)
         }
+    }
+
+    fun onBudgetClicked(budget: Budget) {
+        navigateToBudgetScreenLiveData.value = budget
     }
 
 }

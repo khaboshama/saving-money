@@ -1,23 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.budget_list.view.BudgetListActivity">
+        tools:context=".ui.account_list.view.AccountListActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/toolbar_container"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimaryLight"
-            android:paddingStart="10dp"
             android:paddingTop="15dp"
-            android:paddingEnd="10dp"
             android:paddingBottom="12dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/back_arrow_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="0dp"
+                android:paddingBottom="4dp"
+                android:src="@drawable/ic_back_arrow"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@android:color/white" />
 
             <TextView
                 style="@style/toolbar_textView"
@@ -25,16 +38,16 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@string/budget_list"
+                android:text="@string/account_list"
                 android:textAlignment="viewStart"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/back_arrow_image_view"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@+id/back_arrow_image_view"
+                app:layout_constraintTop_toTopOf="@+id/back_arrow_image_view" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/budgets_recycler_view"
+            android:id="@+id/accounts_recycler_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/colorAccent"
@@ -53,5 +66,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar_container" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/create_account_button"
+            style="@style/FloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
