@@ -25,7 +25,7 @@ class AccountListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_account_list)
         viewModel = ViewModelProvider(this).get(AccountListViewModel::class.java)
-        viewModel.budget = intent.getParcelableExtra(Constants.INTENT_BUDGET_ID_KEY)
+        viewModel.budget = intent.getParcelableExtra(Constants.INTENT_BUDGET_KEY)
 
         setupAccountListRecyclerView()
         setupObservers()

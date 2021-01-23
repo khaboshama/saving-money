@@ -5,7 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.khaled.savingmoney.R
-import com.khaled.savingmoney.constant.Constants
 import com.khaled.savingmoney.model.account.Account
 import com.khaled.savingmoney.model.budget.Budget
 import com.khaled.savingmoney.network.RetrofitService
@@ -32,7 +31,7 @@ class AccountListViewModel(application: Application) : AndroidViewModel(applicat
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 try {
-                    val accountListResponse = RetrofitService.moneyServiceApi.getAccountList(Constants.ACCESS_TOKEN)
+                    val accountListResponse = RetrofitService.moneyServiceApi.getAccountList(budgetId = budget?.id!!)
                     if (accountListResponse.isSuccessful) {
                         parseAccountListSuccessResponse(accountListResponse)
                     } else {
@@ -47,7 +46,8 @@ class AccountListViewModel(application: Application) : AndroidViewModel(applicat
 
     private suspend fun parseAccountListSuccessResponse(response: Response<AccountListResponse>) {
         withContext(Dispatchers.Main) {
-            accountList.value = response.body()?.dataBudgetList?.accountList?.sortedByDescending { it.balance }
+            accountList.value = response.body()?.dataBudgetList?.accountList?.filter { it.deleted.not() }
+                ?.sortedByDescending { it.balance }
         }
     }
 

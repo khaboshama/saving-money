@@ -40,7 +40,7 @@ class BudgetListActivity : AppCompatActivity() {
         }
         viewModel.navigateToBudgetScreenLiveData.observe(this) { budget ->
             startActivity(Intent(this, AccountListActivity::class.java).apply {
-                putExtra(Constants.INTENT_BUDGET_ID_KEY, budget)
+                putExtra(Constants.INTENT_BUDGET_KEY, budget)
             })
         }
     }

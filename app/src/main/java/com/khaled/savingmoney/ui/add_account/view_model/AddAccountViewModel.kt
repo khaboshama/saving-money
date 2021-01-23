@@ -5,10 +5,11 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.khaled.savingmoney.R
-import com.khaled.savingmoney.constant.Constants
 import com.khaled.savingmoney.model.account.Account
+import com.khaled.savingmoney.model.account.AccountType
 import com.khaled.savingmoney.network.RetrofitService
 import com.khaled.savingmoney.network.response.account.AccountListResponse
+import com.khaled.savingmoney.network.response.add_account.AddAccountResponse
 import com.khaled.savingmoney.utils.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,7 +18,10 @@ import retrofit2.Response
 
 class AddAccountViewModel(application: Application) : AndroidViewModel(application) {
 
-    var accountList = MutableLiveData<List<Account>>()
+    var budgetId: String? = null
+    var addButtonState = SingleLiveEvent<Boolean>()
+        private set
+    var showSuccessfullyMessageLiveData = SingleLiveEvent<Void>()
         private set
 
     var navigateToCreateAccountScreenLiveData = SingleLiveEvent<Void>()
@@ -26,30 +30,38 @@ class AddAccountViewModel(application: Application) : AndroidViewModel(applicati
     var showMessage = MutableLiveData<String>()
         private set
 
-    fun loadAccountList() {
+    var showAccountTypesBottomSheet = SingleLiveEvent<Boolean>()
+        private set
+
+    var account = Account()
+        private set
+    private val accountTypeList = mutableListOf<AccountType>()
+
+    private fun addAccount() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 try {
-                    val accountListResponse = RetrofitService.moneyServiceApi.getAccountList(Constants.ACCESS_TOKEN)
-                    if (accountListResponse.isSuccessful) {
-                        parseAccountListSuccessResponse(accountListResponse)
+                    val accountAddedResponse =
+                        RetrofitService.moneyServiceApi.addAccount(account, budgetId)
+                    if (accountAddedResponse.isSuccessful) {
+                        parseAccountSuccessfullyAddedResponse(accountAddedResponse)
                     } else {
-                        parseAccountListErrorResponse()
+                        parseAccountAddedErrorResponse()
                     }
                 } catch (e: Exception) {
-                    parseAccountListErrorResponse()
+                    parseAccountAddedErrorResponse()
                 }
             }
         }
     }
 
-    private suspend fun parseAccountListSuccessResponse(response: Response<AccountListResponse>) {
+    private suspend fun parseAccountSuccessfullyAddedResponse(response: Response<AddAccountResponse>) {
         withContext(Dispatchers.Main) {
-            accountList.value = response.body()?.dataBudgetList?.accountList?.sortedByDescending { it.balance }
+            showSuccessfullyMessageLiveData.call()
         }
     }
 
-    private suspend fun parseAccountListErrorResponse() {
+    private suspend fun parseAccountAddedErrorResponse() {
         withContext(Dispatchers.Main) {
             showMessage.value = getApplication<Application>().getString(R.string.error_message)
         }
@@ -60,7 +72,43 @@ class AddAccountViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     fun onAddButtonClicked() {
+        addAccount()
+    }
 
+    fun onAccountNameChanged(name: String) {
+        account.name = name
+        checkAddButtonState()
+    }
+
+    fun onAccountBalanceChanged(balance: String) {
+        account.balance = balance
+        checkAddButtonState()
+    }
+
+    private fun checkAddButtonState() {
+        addButtonState.value = account.name.isNullOrBlank().not() &&
+                account.balance.isNullOrBlank().not() && account.type.isNullOrBlank().not()
+    }
+
+    fun onAccountTypeClicked() {
+        showAccountTypesBottomSheet.value = true
+    }
+
+    fun onAccountTypeSelected(accountType: AccountType) {
+        accountTypeList.find { it.isSelected }?.isSelected = false
+        accountTypeList.find { it.name == accountType.name }?.isSelected = true
+        account.type = accountType.name
+        showAccountTypesBottomSheet.value = false
+        checkAddButtonState()
+    }
+
+    fun getAccountTypeArrayList(): MutableList<AccountType> {
+        if (accountTypeList.isEmpty()) {
+            val typeArray =
+                getApplication<Application>().resources.getStringArray(R.array.account_types).toMutableList()
+            typeArray.forEach { accountTypeList.add(AccountType(it)) }
+        }
+        return accountTypeList
     }
 
 }

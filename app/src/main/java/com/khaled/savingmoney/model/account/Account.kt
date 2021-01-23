@@ -5,10 +5,10 @@ import android.os.Parcelable
 
 data class Account(
     val id: String? = null,
-    val name: String? = null,
-    val type: String? = null,
+    var name: String? = null,
+    var type: String? = null,
     val close: Boolean = false,
-    val balance: Int = 0,
+    var balance: String? = null,
     val deleted: Boolean = false
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
@@ -16,7 +16,7 @@ data class Account(
         parcel.readString(),
         parcel.readString(),
         parcel.readByte() != 0.toByte(),
-        parcel.readInt(),
+        parcel.readString(),
         parcel.readByte() != 0.toByte()
     ) {
     }
@@ -26,7 +26,7 @@ data class Account(
         parcel.writeString(name)
         parcel.writeString(type)
         parcel.writeByte(if (close) 1 else 0)
-        parcel.writeInt(balance)
+        parcel.writeString(balance)
         parcel.writeByte(if (deleted) 1 else 0)
     }
 

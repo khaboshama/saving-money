@@ -14,16 +14,16 @@ import com.khaled.savingmoney.ui.account_list.view.AccountListActivity
 import com.khaled.savingmoney.ui.budget_list.view_model.BudgetListViewModel
 
 class AccountListAdapter(context: Context) :
-    ListAdapter<Account, AccountListAdapter.BudgetViewHolder>(AccountDiffCallback()) {
+    ListAdapter<Account, AccountListAdapter.AccountViewHolder>(AccountDiffCallback()) {
 
     private var viewModel = ViewModelProvider((context as AccountListActivity)).get(BudgetListViewModel::class.java)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BudgetViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AccountViewHolder {
         val binding = ListItemAccountBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return BudgetViewHolder(binding)
+        return AccountViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: BudgetViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: AccountViewHolder, position: Int) {
         val account = getItem(position)
         holder.nameTextView.text = account.name
         holder.typeTextView.text = String.format(holder.itemView.context.getString(R.string.type_format), account.type)
@@ -31,7 +31,7 @@ class AccountListAdapter(context: Context) :
             String.format(holder.itemView.context.getString(R.string.balance_format), account.balance.toString())
     }
 
-    inner class BudgetViewHolder(binding: ListItemAccountBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class AccountViewHolder(binding: ListItemAccountBinding) : RecyclerView.ViewHolder(binding.root) {
         val nameTextView = binding.nameTextView
         val typeTextView = binding.typeTextView
         val balanceTextView = binding.balanceTextView
