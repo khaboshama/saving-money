@@ -1,5 +1,6 @@
 package com.khaled.savingmoney.ui.account_list.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -29,6 +30,7 @@ class AccountListActivity : AppCompatActivity() {
 
     private fun setListeners() {
         binding.backArrowImageView.setOnClickListener { finish() }
+        binding.createAccountButton.setOnClickListener{ viewModel.onCreateAccountButtonClicked() }
     }
 
     private fun setupObservers() {
@@ -40,7 +42,9 @@ class AccountListActivity : AppCompatActivity() {
             hideProgressBar()
             Toast.makeText(this, it, Toast.LENGTH_LONG).show()
         }
-        viewModel.navigateToCreateAccountScreenLiveData.observe(this) {}
+        viewModel.navigateToCreateAccountScreenLiveData.observe(this) {
+
+        }
     }
 
     private fun hideProgressBar() {

@@ -55,4 +55,8 @@ class AccountListViewModel(application: Application) : AndroidViewModel(applicat
         }
     }
 
+    fun onCreateAccountButtonClicked() {
+        navigateToCreateAccountScreenLiveData.call()
+    }
+
 }
