@@ -33,6 +33,7 @@
                 app:tint="@android:color/white" />
 
             <TextView
+                android:id="@+id/toolbar_text_view"
                 style="@style/toolbar_textView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

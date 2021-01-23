@@ -19,7 +19,7 @@ class BudgetListViewModel(application: Application) : AndroidViewModel(applicati
     var budgetList = MutableLiveData<List<Budget>>()
         private set
 
-    var navigateToBudgetScreenLiveData = SingleLiveEvent<Budget>()
+    var navigateToAccountListScreenLiveData = SingleLiveEvent<Budget>()
         private set
 
     var showMessage = MutableLiveData<String>()
@@ -53,7 +53,7 @@ class BudgetListViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     fun onBudgetClicked(budget: Budget) {
-        navigateToBudgetScreenLiveData.value = budget
+        navigateToAccountListScreenLiveData.value = budget
     }
 
 }
